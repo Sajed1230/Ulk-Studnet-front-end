@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // ================== Styled Components ==================
 const Container = styled.div`
@@ -32,14 +33,17 @@ const Breadcrumb = styled.nav`
   border-radius: 10px;
   margin-bottom: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
   a {
     color: #2e7d32;
     text-decoration: none;
     font-weight: 600;
+
     &:hover {
       text-decoration: underline;
     }
   }
+
   span {
     color: #f57f17;
     margin: 0 10px;
@@ -144,6 +148,25 @@ const Footer = styled.footer`
   margin-top: 30px;
 `;
 
+// ================== Animation Variants ==================
+const pageVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: (index) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.6, delay: index * 0.15 },
+  }),
+};
+
 // ================== React Component ==================
 const CsseMajors = () => {
   const navigate = useNavigate();
@@ -193,55 +216,61 @@ const CsseMajors = () => {
   ];
 
   const handleMajorClick = (majorName) => {
-    // Navigate with query params
     navigate(`/years?track=csse&major=${encodeURIComponent(majorName)}`);
   };
 
   return (
-    <Container>
-      <Header>
-        <H1>CSSE Track Majors</H1>
-      </Header>
+    <motion.div variants={pageVariants} initial="hidden" animate="visible">
+      <Container>
+        <Header>
+          <H1>CSSE Track Majors</H1>
+        </Header>
 
-      <Breadcrumb>
-        <a href="/">Home</a>
-        <span></span>
-        <a href="/trackmajor">Select Track</a>
-        <span></span>
-        <span>CSSE Majors</span>
-      </Breadcrumb>
+        <Breadcrumb>
+          <a href="/">Home</a>
+          <span></span>
+          <a href="/trackmajor">Select Track</a>
+          <span></span>
+          <span>CSSE Majors</span>
+        </Breadcrumb>
 
-      <MajorsSection>
-        <h2>Choose Your CSSE Major</h2>
-        <p>
-          Select your specific major within the Computer Science, Software
-          Engineering track. Each major offers specialized courses and exam
-          materials tailored to your field of study.
-        </p>
+        <MajorsSection>
+          <h2>Choose Your CSSE Major</h2>
+          <p>
+            Select your specific major within the Computer Science, Software
+            Engineering track. Each major offers specialized courses and exam
+            materials tailored to your field of study.
+          </p>
 
-        <MajorsGrid>
-          {majors.map((major, index) => (
-            <MajorCard
-              key={index}
-              onClick={() => handleMajorClick(major.title)}
-            >
-              <MajorIcon>{major.icon}</MajorIcon>
-              <MajorTitle>{major.title}</MajorTitle>
-              <MajorDescription>{major.description}</MajorDescription>
-              <MajorSkills>Key Skills: {major.skills}</MajorSkills>
-              <MajorCareer>Career Paths: {major.career}</MajorCareer>
-            </MajorCard>
-          ))}
-        </MajorsGrid>
-      </MajorsSection>
+          <MajorsGrid>
+            {majors.map((major, index) => (
+              <motion.div
+                key={index}
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <MajorCard onClick={() => handleMajorClick(major.title)}>
+                  <MajorIcon>{major.icon}</MajorIcon>
+                  <MajorTitle>{major.title}</MajorTitle>
+                  <MajorDescription>{major.description}</MajorDescription>
+                  <MajorSkills>Key Skills: {major.skills}</MajorSkills>
+                  <MajorCareer>Career Paths: {major.career}</MajorCareer>
+                </MajorCard>
+              </motion.div>
+            ))}
+          </MajorsGrid>
+        </MajorsSection>
 
-      <Footer>
-        <p>
-          &copy; 2024 Sudanese Students Association in Rwanda. All rights
-          reserved.
-        </p>
-      </Footer>
-    </Container>
+        <Footer>
+          <p>
+            &copy; 2024 Sudanese Students Association in Rwanda. All rights
+            reserved.
+          </p>
+        </Footer>
+      </Container>
+    </motion.div>
   );
 };
 

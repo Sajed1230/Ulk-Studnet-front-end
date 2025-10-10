@@ -1,15 +1,17 @@
+// YearSelection.jsx
 import React from "react";
 import styled from "styled-components";
 import { useSearchParams, Link } from "react-router-dom";
+import { motion } from "framer-motion"; // ✅ Import Framer Motion
 
 // ====================== Styled Components ======================
-const Container = styled.div`
+const Container = styled(motion.div)`
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 `;
 
-const Header = styled.header`
+const Header = styled(motion.header)`
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   padding: 20px 0;
@@ -19,7 +21,7 @@ const Header = styled.header`
   text-align: center;
 `;
 
-const Breadcrumb = styled.nav`
+const Breadcrumb = styled(motion.nav)`
   background: rgba(255, 255, 255, 0.9);
   padding: 15px 20px;
   border-radius: 10px;
@@ -33,7 +35,6 @@ const Breadcrumb = styled.nav`
     color: #2e7d32;
     text-decoration: none;
     font-weight: 600;
-
     &:hover {
       text-decoration: underline;
     }
@@ -44,7 +45,7 @@ const Breadcrumb = styled.nav`
   }
 `;
 
-const YearsSection = styled.section`
+const YearsSection = styled(motion.section)`
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
   padding: 40px;
@@ -53,7 +54,7 @@ const YearsSection = styled.section`
   text-align: center;
 `;
 
-const MajorInfo = styled.div`
+const MajorInfo = styled(motion.div)`
   background: rgba(46, 125, 50, 0.1);
   padding: 20px;
   border-radius: 15px;
@@ -72,7 +73,7 @@ const MajorInfo = styled.div`
   }
 `;
 
-const YearsGrid = styled.div`
+const YearsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 25px;
@@ -84,7 +85,7 @@ const YearsGrid = styled.div`
   }
 `;
 
-const YearCard = styled.div`
+const YearCard = styled(motion.div)`
   background: linear-gradient(
     135deg,
     rgba(255, 235, 59, 0.2),
@@ -97,9 +98,8 @@ const YearCard = styled.div`
   border: 2px solid transparent;
   cursor: pointer;
   color: inherit;
-  position: relative;
-  overflow: hidden;
   text-align: center;
+  overflow: hidden;
 
   &:hover {
     transform: translateY(-10px);
@@ -128,7 +128,7 @@ const YearDescription = styled.div`
   line-height: 1.5;
 `;
 
-const Footer = styled.footer`
+const Footer = styled(motion.footer)`
   background: rgba(46, 125, 50, 0.9);
   color: white;
   text-align: center;
@@ -142,8 +142,6 @@ const YearSelection = () => {
   const [searchParams] = useSearchParams();
   const track = searchParams.get("track");
   const major = searchParams.get("major");
-  console.log(major);
-
 
   const majorInfo = {
     "Software Engineering": {
@@ -180,15 +178,27 @@ const YearSelection = () => {
     4: "Final Year - Capstone and specialization",
   };
 
-  const maxYear = track === "ss" ? 3 : 4; // Show 3 years for SS, 4 for others
+  const maxYear = track === "ss" ? 3 : 4;
 
   return (
-    <Container>
-      <Header>
+    <Container
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <Header
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+      >
         <h1>Select Academic Year</h1>
       </Header>
 
-      <Breadcrumb>
+      <Breadcrumb
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+      >
         <a href="/">Home</a>
         <span>/</span>
         <a href="/trackmajor">Select Track</a>
@@ -200,8 +210,16 @@ const YearSelection = () => {
         <span>Select Year</span>
       </Breadcrumb>
 
-      <YearsSection>
-        <MajorInfo>
+      <YearsSection
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+      >
+        <MajorInfo
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
           <h3>{majorInfo[major]?.title || major}</h3>
           <p>
             {majorInfo[major]?.description ||
@@ -215,7 +233,11 @@ const YearSelection = () => {
           resources.
         </p>
 
-        <YearsGrid>
+        <YearsGrid
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+        >
           {Array.from({ length: maxYear }, (_, i) => {
             const year = i + 1;
             return (
@@ -226,7 +248,16 @@ const YearSelection = () => {
                 )}&year=${year}`}
                 style={{ textDecoration: "none" }}
               >
-                <YearCard>
+                <YearCard
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.9 + i * 0.1,
+                    duration: 0.6,
+                  }}
+                >
                   <YearNumber>{year}</YearNumber>
                   <YearTitle>Year {year}</YearTitle>
                   <YearDescription>{yearDescriptions[year]}</YearDescription>
@@ -237,7 +268,11 @@ const YearSelection = () => {
         </YearsGrid>
       </YearsSection>
 
-      <Footer>
+      <Footer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+      >
         &copy; 2024 Sudanese Students Association in Rwanda. All rights
         reserved.
       </Footer>

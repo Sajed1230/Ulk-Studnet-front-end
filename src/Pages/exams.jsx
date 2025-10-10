@@ -1,40 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import { motion } from "framer-motion"; // 🧩 Added for animation
 
 // =================== Styled Components ===================
-const Container = styled.div`
-  max-width: 1200px;
+const Container = styled(motion.div)`
+  /* 🎬 make container animated */
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
 `;
 
 const Header = styled.header`
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 20px 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  margin-bottom: 30px;
+  backdrop-filter: blur(12px);
+  padding: 25px 0;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  margin-bottom: 40px;
   text-align: center;
 
   h1 {
-    color: #2e7d32;
-    font-size: 2.5rem;
+    color: #05b37d;
+    font-size: 3rem;
+    font-weight: 700;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const Breadcrumb = styled.nav`
-  background: rgba(255, 255, 255, 0.9);
-  padding: 15px 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 18px 25px;
+  border-radius: 12px;
+  margin-bottom: 35px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 
   a {
-    color: #2e7d32;
+    color: #05b37d;
     text-decoration: none;
     font-weight: 600;
 
@@ -44,35 +47,37 @@ const Breadcrumb = styled.nav`
   }
 
   span {
-    color: #f57f17;
+    color: #888;
     margin: 0 10px;
   }
 `;
 
 const CourseInfo = styled.section`
-  background: rgba(46, 125, 50, 0.1);
-  padding: 20px;
-  border-radius: 15px;
-  margin-bottom: 30px;
-  border-left: 4px solid #2e7d32;
+  background: rgba(5, 179, 125, 0.12);
+  padding: 25px;
+  border-radius: 18px;
+  margin-bottom: 40px;
+  border-left: 6px solid #05b37d;
 
   h2 {
-    color: #2e7d32;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    color: #05b37d;
+    font-size: 2rem;
+    margin-bottom: 20px;
   }
 `;
 
 const CourseDetails = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 30px;
   flex-wrap: wrap;
+  font-size: 1.1rem;
 `;
 
 const Detail = styled.div`
   .label {
     font-weight: bold;
-    color: #2e7d32;
+    color: #05b37d;
+    margin-bottom: 4px;
   }
   .value {
     color: #555;
@@ -80,101 +85,103 @@ const Detail = styled.div`
 `;
 
 const ExamsSection = styled.section`
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(10px);
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 35px;
+  border-radius: 25px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
   text-align: center;
 
   h3 {
-    color: #2e7d32;
-    font-size: 2rem;
-    margin-bottom: 20px;
+    color: #05b37d;
+    font-size: 2.5rem;
+    margin-bottom: 25px;
   }
 `;
 
 const SearchFilter = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 18px;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 
   input,
   select {
-    padding: 10px;
-    border-radius: 8px;
+    padding: 12px 15px;
+    border-radius: 10px;
     border: 1px solid #ccc;
-    font-size: 1rem;
+    font-size: 1.05rem;
+    outline: none;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: rgba(46, 125, 50, 0.9);
   }
 `;
 
 const ExamsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
 `;
 
-const ExamCard = styled.div`
-  background: linear-gradient(
-    135deg,
-    rgba(255, 235, 59, 0.2),
-    rgba(76, 175, 80, 0.2)
-  );
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
+const ExamCard = styled(motion.div)`
+  /* ✨ Animate each card */
+  background: white;
+  padding: 35px;
+  border-radius: 25px;
+  border-left: 6px solid rgba(46, 125, 50, 0.9);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
   text-align: left;
 
   &:hover {
     transform: translateY(-10px);
-    border-color: #f57f17;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
   }
 
   .exam-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #2e7d32;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: rgba(40, 194, 48, 0.9);
   }
 
   .exam-type {
     color: #f57f17;
+    font-size: 1.1rem;
     text-transform: capitalize;
   }
 
   .exam-details {
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-    color: #444;
-  }
-
-  .exam-description {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     margin-bottom: 15px;
-    color: #555;
+    color: #444;
   }
 
   .exam-actions {
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    margin-top: 10px;
   }
 `;
 
-const Button = styled.button`
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-size: 0.9rem;
+const Button = styled.a`
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
   cursor: pointer;
-  border: none;
+  text-decoration: none;
   color: white;
+  font-weight: 600;
   transition: 0.3s ease;
+  text-align: center;
 
   &.primary {
-    background: #2e7d32;
+    background: #05b37d;
   }
 
   &.secondary {
@@ -186,82 +193,67 @@ const Button = styled.button`
   }
 `;
 
-const Footer = styled.footer`
-  background: rgba(46, 125, 50, 0.9);
-  color: white;
+const EmptyState = styled.div`
   text-align: center;
-  padding: 20px;
-  border-radius: 15px;
-  margin-top: 30px;
+  color: #777;
+  padding: 60px 0;
+  font-size: 1.4rem;
 `;
 
-// =================== Data ===================
-const examData = {
-  csse: {
-    "software-engineering": {
-      1: [
-        {
-          title: "Introduction to Programming",
-          type: "midterm",
-          semester: "Fall 2023",
-          description: "Basic programming concepts and syntax",
-        },
-        {
-          title: "Mathematics for Computing",
-          type: "final",
-          semester: "Fall 2023",
-          description: "Discrete mathematics and logic",
-        },
-        {
-          title: "Computer Systems Fundamentals",
-          type: "quiz",
-          semester: "Spring 2024",
-          description: "Hardware and software basics",
-        },
-      ],
-    },
-  },
-};
-
-const majorInfo = {
-  "software-engineering": "Software Engineering",
-  "computer-science": "Computer Science",
-  "data-science": "Data Science",
-  accounting: "Accounting",
-  economics: "Economics",
-  "international-relations": "International Relations",
-};
+const Footer = styled.footer`
+  background: #4ba820;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  border-radius: 18px;
+  margin-top: 40px;
+  font-size: 1rem;
+`;
 
 // ====================== Component ======================
 const ExamPage = () => {
   const [searchParams] = useSearchParams();
-
-  // Get track, major, year from URL
   const track = searchParams.get("track") || "csse";
   const major = searchParams.get("major") || "software-engineering";
-  console.log(major)
   const year = parseInt(searchParams.get("year")) || 1;
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [filteredExams, setFilteredExams] = useState([]);
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [exams, setExams] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const exams = examData[track]?.[major]?.[year] || [];
-
-    const filtered = exams.filter((exam) => {
-      const matchesSearch =
-        exam.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        exam.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesType = !typeFilter || exam.type === typeFilter;
-      return matchesSearch && matchesType;
-    });
-
-    setFilteredExams(filtered);
-  }, [searchTerm, typeFilter, track, major, year]);
+    const fetchExams = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          "https://ulk-studnet-back-end.onrender.com/user/api/exams",
+          {
+            params: {
+              track,
+              major,
+              year,
+              search: searchTerm,
+              type: typeFilter,
+            },
+          }
+        );
+        setExams(res.data);
+      } catch (err) {
+        console.error("Error fetching exams:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchExams();
+  }, [track, major, year, searchTerm, typeFilter]);
 
   return (
-    <Container>
+    <Container
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       <Header>
         <h1>Exam Repository</h1>
       </Header>
@@ -270,7 +262,6 @@ const ExamPage = () => {
         <a href="/">Home</a>
         <span>&gt;</span>
         <a href="/trackmajor">Select Track</a>
-
         <span>&gt;</span>
         <span>Exams</span>
       </Breadcrumb>
@@ -306,49 +297,64 @@ const ExamPage = () => {
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
           >
-            <option value="">All Types</option>
-            <option value="cat11">cat11</option>
-            <option value="fat">fat</option>
-            <option value="quiz">Quiz</option>
-            <option value="practical">Practical</option>
+            <option value="all">All Types</option>
+            <option value="Cat 11">Cat 11</option>
+            <option value="Fat">Fat</option>
+            <option value="Quiz">Quiz</option>
           </select>
         </SearchFilter>
 
-        <ExamsGrid>
-          {filteredExams.length > 0 ? (
-            filteredExams.map((exam, index) => (
-              <ExamCard key={index}>
+        {loading ? (
+          <EmptyState>Loading exams...</EmptyState>
+        ) : exams.length > 0 ? (
+          <ExamsGrid>
+            {exams.map((exam, index) => (
+              <ExamCard
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
                 <div className="exam-header">
-                  <div className="exam-title">{exam.title}</div>
-                  <div className="exam-type">{exam.type}</div>
+                  <div className="exam-title">{exam.name}</div>
+                  <div className="exam-type">{exam.typeExam}</div>
                 </div>
                 <div className="exam-details">
                   <div>
-                    <strong>Semester:</strong> {exam.semester}
+                    <strong>Year:</strong> {exam.year}
                   </div>
                   <div>
-                    <strong>Type:</strong>{" "}
-                    {exam.type.charAt(0).toUpperCase() + exam.type.slice(1)}
+                    <strong>Track:</strong> {exam.track}
+                  </div>
+                  <div>
+                    <strong>Major:</strong> {exam.major}
                   </div>
                 </div>
-                <div className="exam-description">{exam.description}</div>
                 <div className="exam-actions">
-                  <Button className="primary">Download PDF</Button>
-                  <Button className="secondary">Preview</Button>
+                  <Button
+                    className="primary"
+                    href={exam.pdfPath}
+                    download={`${exam.name}.pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Download PDF
+                  </Button>
                 </div>
               </ExamCard>
-            ))
-          ) : (
-            <div>No exams available for this year.</div>
-          )}
-        </ExamsGrid>
+            ))}
+          </ExamsGrid>
+        ) : (
+          <EmptyState>No exams available for this selection.</EmptyState>
+        )}
       </ExamsSection>
 
       <Footer>
-        &copy; {new Date().getFullYear()} Sudanese Students Association in
-        Rwanda. All rights reserved.
+        &copy; {new Date().getFullYear()} ULK Sudanese Community. All rights
+        reserved.
       </Footer>
     </Container>
   );
 };
+
 export default ExamPage;

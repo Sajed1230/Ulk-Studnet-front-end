@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
 // ================== Styled Components ==================
 const Container = styled.div`
   max-width: 1200px;
@@ -77,7 +79,7 @@ const MajorsGrid = styled.div`
   margin: 0 auto;
 `;
 
-const MajorCard = styled.a`
+const MajorCard = styled.div`
   background: linear-gradient(
     135deg,
     rgba(255, 152, 0, 0.1),
@@ -143,6 +145,25 @@ const Footer = styled.footer`
   margin-top: 30px;
 `;
 
+// ================== Animation Variants ==================
+const pageVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: (index) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.6, delay: index * 0.15 },
+  }),
+};
+
 // ================== React Component ==================
 const SsMajors = () => {
   const majors = [
@@ -190,53 +211,63 @@ const SsMajors = () => {
   ];
 
   return (
-    <Container>
-      <Header>
-        <H1>SS Track Majors</H1>
-      </Header>
+    <motion.div variants={pageVariants} initial="hidden" animate="visible">
+      <Container>
+        <Header>
+          <H1>SS Track Majors</H1>
+        </Header>
 
-      <Breadcrumb>
-        <a href="/">Home</a>
-        <span></span>
-        <a href="/trackmajor">Select Track</a>
-        <span></span>
-        <span>SS Majors</span>
-      </Breadcrumb>
+        <Breadcrumb>
+          <a href="/">Home</a>
+          <span></span>
+          <a href="/trackmajor">Select Track</a>
+          <span></span>
+          <span>SS Majors</span>
+        </Breadcrumb>
 
-      <MajorsSection>
-        <h2>Choose Your SS Major</h2>
-        <p>
-          Select your specific major within the Social Sciences track. Each
-          major provides comprehensive study materials and exam resources for
-          your academic journey.
-        </p>
+        <MajorsSection>
+          <h2>Choose Your SS Major</h2>
+          <p>
+            Select your specific major within the Social Sciences track. Each
+            major provides comprehensive study materials and exam resources for
+            your academic journey.
+          </p>
 
-        <MajorsGrid>
-          {majors.map((major, index) => (
-            <MajorCard
-              key={index}
-              as={Link} // ✅ use React Router Link
-              to={`/years?track=ss&major=${encodeURIComponent(major.title)}`}
-            >
-              <MajorIcon>{major.icon}</MajorIcon>
-              <MajorTitle>{major.title}</MajorTitle>
-              <MajorDescription>{major.description}</MajorDescription>
-              <MajorSkills>Key Skills: {major.skills}</MajorSkills>
-              <MajorCareer>Career Paths: {major.career}</MajorCareer>
-            </MajorCard>
-          ))}
-        </MajorsGrid>
-      </MajorsSection>
+          <MajorsGrid>
+            {majors.map((major, index) => (
+              <motion.div
+                key={index}
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <MajorCard
+                  as={Link}
+                  to={`/years?track=ss&major=${encodeURIComponent(
+                    major.title
+                  )}`}
+                >
+                  <MajorIcon>{major.icon}</MajorIcon>
+                  <MajorTitle>{major.title}</MajorTitle>
+                  <MajorDescription>{major.description}</MajorDescription>
+                  <MajorSkills>Key Skills: {major.skills}</MajorSkills>
+                  <MajorCareer>Career Paths: {major.career}</MajorCareer>
+                </MajorCard>
+              </motion.div>
+            ))}
+          </MajorsGrid>
+        </MajorsSection>
 
-      <Footer>
-        <p>
-          &copy; 2024 Sudanese Students Association in Rwanda. All rights
-          reserved.
-        </p>
-      </Footer>
-    </Container>
+        <Footer>
+          <p>
+            &copy; 2024 Sudanese Students Association in Rwanda. All rights
+            reserved.
+          </p>
+        </Footer>
+      </Container>
+    </motion.div>
   );
 };
-
 
 export default SsMajors;
