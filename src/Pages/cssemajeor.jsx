@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // ================== Styled Components ==================
@@ -227,13 +227,12 @@ const CsseMajors = () => {
         </Header>
 
         <Breadcrumb>
-          <a href="/">Home</a>
-          <span></span>
-          <a href="/trackmajor">Select Track</a>
-          <span></span>
+          <Link to="/">Home</Link>
+          <span>›</span>
+          <Link to="/trackmajor">Select Track</Link>
+          <span>›</span>
           <span>CSSE Majors</span>
         </Breadcrumb>
-
         <MajorsSection>
           <h2>Choose Your CSSE Major</h2>
           <p>

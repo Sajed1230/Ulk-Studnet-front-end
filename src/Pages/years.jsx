@@ -199,11 +199,17 @@ const YearSelection = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
       >
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
         <span>/</span>
-        <a href="/trackmajor">Select Track</a>
+        <Link to="/trackmajor">Select Track</Link>
         <span>/</span>
-        <a href="#" onClick={() => window.history.back()}>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(-1); // same as window.history.back() but React-safe
+          }}
+        >
           Select Major
         </a>
         <span>/</span>

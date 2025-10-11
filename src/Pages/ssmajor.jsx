@@ -218,10 +218,10 @@ const SsMajors = () => {
         </Header>
 
         <Breadcrumb>
-          <a href="/">Home</a>
-          <span></span>
-          <a href="/trackmajor">Select Track</a>
-          <span></span>
+          <Link to="/">Home</Link>
+          <span>›</span>
+          <Link to="/trackmajor">Select Track</Link>
+          <span>›</span>
           <span>SS Majors</span>
         </Breadcrumb>
 

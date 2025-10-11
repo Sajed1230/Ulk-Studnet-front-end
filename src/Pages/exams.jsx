@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { motion } from "framer-motion"; // 🧩 Added for animation
@@ -259,9 +259,9 @@ const ExamPage = () => {
       </Header>
 
       <Breadcrumb>
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
         <span>&gt;</span>
-        <a href="/trackmajor">Select Track</a>
+        <Link to="/trackmajor">Select Track</Link>
         <span>&gt;</span>
         <span>Exams</span>
       </Breadcrumb>
