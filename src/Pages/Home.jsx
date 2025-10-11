@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // ====================== Animations ======================
 const fadeUp = {
@@ -209,12 +210,17 @@ export default function SudaneseStudents() {
             resource sharing.
           </HeroText>
           <CtaButtons>
-            <Button href="/trackmajor" variant="primary">
-              Browse Exams
-            </Button>
+            <Link to="/trackmajor">
+              <Button  variant="primary">
+                Browse Exams
+              </Button>
+            </Link>
+            <Link to="#president">
+            
             <Button href="#president" variant="secondary">
               Meet Our President
             </Button>
+            </Link>
           </CtaButtons>
         </HeroSection>
 

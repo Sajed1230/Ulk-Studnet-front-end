@@ -11,10 +11,9 @@ import ExamPage from "./Pages/exams";
 function App() {
   return (
     <Routes>
-      {/* Layout is the parent route */}
+      
       <Route path="/" element={<Layout />}>
-        {/* Nested route will render inside Layout's <Outlet /> */}
-        <Route index element={<Home />} />
+         <Route index element={<Home />} />
         <Route path="trackmajor" element={<TracksPage />} />
         <Route path="cssemajors" element={<CsseMajors />} />
         <Route path="ssmajors" element={<SsMajors />} />
