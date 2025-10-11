@@ -15,6 +15,10 @@ const Container = styled(motion.div)`
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 const Header = styled(motion.header)`
@@ -25,6 +29,10 @@ const Header = styled(motion.header)`
   border-radius: 15px;
   margin-bottom: 30px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 15px 10px;
+  }
 `;
 
 const Title = styled.h1`
@@ -42,6 +50,10 @@ const Subtitle = styled.p`
   color: #f57f17;
   font-size: 1.2rem;
   font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const HeroSection = styled(motion.section)`
@@ -62,6 +74,10 @@ const HeroHeading = styled.h2`
   color: #2e7d32;
   font-size: 2rem;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const HeroText = styled.p`
@@ -70,6 +86,12 @@ const HeroText = styled.p`
   max-width: 800px;
   margin: 0 auto 30px;
   line-height: 1.8;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
 `;
 
 const CtaButtons = styled.div`
@@ -121,6 +143,10 @@ const PresidentSection = styled(motion.section)`
   margin-bottom: 30px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const PresidentCard = styled.div`
@@ -134,6 +160,10 @@ const PresidentCard = styled.div`
   border-left: 5px solid #f57f17;
   max-width: 700px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const PresidentPhoto = styled.img`
@@ -143,6 +173,11 @@ const PresidentPhoto = styled.img`
   object-fit: cover;
   border: 4px solid #2e7d32;
   margin-bottom: 15px;
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const PresidentName = styled.div`
@@ -150,12 +185,20 @@ const PresidentName = styled.div`
   font-weight: bold;
   color: #2e7d32;
   margin-bottom: 5px;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const PresidentMajor = styled.div`
   color: #f57f17;
   font-weight: 600;
   margin-bottom: 15px;
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+  }
 `;
 
 const PresidentAdvice = styled.div`
@@ -163,6 +206,10 @@ const PresidentAdvice = styled.div`
   color: #555;
   line-height: 1.7;
   margin-bottom: 15px;
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+  }
 `;
 
 const PresidentBio = styled.p`
@@ -170,6 +217,10 @@ const PresidentBio = styled.p`
   font-size: 1rem;
   line-height: 1.6;
   margin-top: 15px;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const UnLogo = styled.div`
@@ -178,6 +229,10 @@ const UnLogo = styled.div`
   img {
     width: 80px;
     height: auto;
+
+    @media (max-width: 768px) {
+      width: 60px;
+    }
   }
 `;
 
@@ -188,6 +243,11 @@ const Footer = styled(motion.footer)`
   padding: 20px;
   border-radius: 15px;
   margin-top: 30px;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
 `;
 
 // ====================== Component ======================
@@ -211,16 +271,11 @@ export default function SudaneseStudents() {
           </HeroText>
           <CtaButtons>
             <Link to="/trackmajor">
-              <Button  variant="primary">
-                Browse Exams
-              </Button>
+              <Button variant="primary">Browse Exams</Button>
             </Link>
-            <Link to="#president">
-            
-            <Button href="#president" variant="secondary">
+            <Button as={Link} to="#president" variant="secondary">
               Meet Our President
             </Button>
-            </Link>
           </CtaButtons>
         </HeroSection>
 
@@ -251,12 +306,12 @@ export default function SudaneseStudents() {
             </UnLogo>
           </PresidentCard>
         </PresidentSection>
-
-        <Footer variants={fadeUp}>
-          &copy; {new Date().getFullYear()} Sudanese Students Association in
-          Rwanda. All Rights Reserved.
-        </Footer>
       </main>
+
+      <Footer variants={fadeUp}>
+        &copy; {new Date().getFullYear()} Sudanese Students Association Rwanda.
+        All rights reserved.
+      </Footer>
     </Container>
   );
 }

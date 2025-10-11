@@ -8,6 +8,14 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 `;
 
 const Header = styled.header`
@@ -25,6 +33,14 @@ const H1 = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const Breadcrumb = styled.nav`
@@ -33,6 +49,9 @@ const Breadcrumb = styled.nav`
   border-radius: 10px;
   margin-bottom: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 
   a {
     color: #2e7d32;
@@ -45,8 +64,8 @@ const Breadcrumb = styled.nav`
   }
 
   span {
-    color: #f57f17;
-    margin: 0 10px;
+    color: #2196f3;
+    margin: 0 5px;
   }
 `;
 
@@ -62,6 +81,14 @@ const MajorsSection = styled.section`
     color: #2e7d32;
     font-size: 2rem;
     margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 1.6rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.4rem;
+    }
   }
 
   p {
@@ -71,13 +98,18 @@ const MajorsSection = styled.section`
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
   }
 `;
 
 const MajorsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
   max-width: 1100px;
   margin: 0 auto;
 `;
@@ -88,7 +120,7 @@ const MajorCard = styled.div`
     rgba(33, 150, 243, 0.1),
     rgba(76, 175, 80, 0.1)
   );
-  padding: 35px;
+  padding: 30px 20px;
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -99,44 +131,68 @@ const MajorCard = styled.div`
   display: block;
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
     border-color: #2196f3;
+  }
+
+  @media (max-width: 480px) {
+    padding: 25px 15px;
   }
 `;
 
 const MajorIcon = styled.div`
-  font-size: 3.5rem;
-  margin-bottom: 20px;
+  font-size: 3rem;
+  margin-bottom: 15px;
   display: block;
   color: #2196f3;
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const MajorTitle = styled.div`
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #2e7d32;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const MajorDescription = styled.div`
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #666;
-  margin-bottom: 20px;
-  line-height: 1.6;
+  margin-bottom: 15px;
+  line-height: 1.5;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const MajorSkills = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #f57f17;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const MajorCareer = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #2e7d32;
   font-weight: 600;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const Footer = styled.footer`
@@ -146,6 +202,11 @@ const Footer = styled.footer`
   padding: 20px;
   border-radius: 15px;
   margin-top: 30px;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    padding: 15px;
+  }
 `;
 
 // ================== Animation Variants ==================
@@ -233,6 +294,7 @@ const CsseMajors = () => {
           <span>›</span>
           <span>CSSE Majors</span>
         </Breadcrumb>
+
         <MajorsSection>
           <h2>Choose Your CSSE Major</h2>
           <p>
@@ -264,8 +326,8 @@ const CsseMajors = () => {
 
         <Footer>
           <p>
-            &copy; 2024 Sudanese Students Association in Rwanda. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Sudanese Students Association in
+            Rwanda. All rights reserved.
           </p>
         </Footer>
       </Container>

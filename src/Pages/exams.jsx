@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { motion } from "framer-motion"; // 🧩 Added for animation
+import { motion } from "framer-motion";
 
 // =================== Styled Components ===================
 const Container = styled(motion.div)`
-  /* 🎬 make container animated */
   max-width: 1400px;
   margin: 0 auto;
   padding: 30px;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 15px;
+  }
 `;
 
 const Header = styled.header`
@@ -26,6 +33,14 @@ const Header = styled.header`
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+      font-size: 2.2rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.8rem;
+    }
   }
 `;
 
@@ -35,6 +50,9 @@ const Breadcrumb = styled.nav`
   border-radius: 12px;
   margin-bottom: 35px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 
   a {
     color: #05b37d;
@@ -48,7 +66,7 @@ const Breadcrumb = styled.nav`
 
   span {
     color: #888;
-    margin: 0 10px;
+    margin: 0 5px;
   }
 `;
 
@@ -63,6 +81,14 @@ const CourseInfo = styled.section`
     color: #05b37d;
     font-size: 2rem;
     margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 1.6rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.4rem;
+    }
   }
 `;
 
@@ -71,6 +97,16 @@ const CourseDetails = styled.div`
   gap: 30px;
   flex-wrap: wrap;
   font-size: 1.1rem;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    font-size: 0.95rem;
+  }
 `;
 
 const Detail = styled.div`
@@ -96,6 +132,14 @@ const ExamsSection = styled.section`
     color: #05b37d;
     font-size: 2.5rem;
     margin-bottom: 25px;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.6rem;
+    }
   }
 `;
 
@@ -104,6 +148,7 @@ const SearchFilter = styled.div`
   gap: 18px;
   justify-content: center;
   margin-bottom: 35px;
+  flex-wrap: wrap;
 
   input,
   select {
@@ -112,6 +157,11 @@ const SearchFilter = styled.div`
     border: 1px solid #ccc;
     font-size: 1.05rem;
     outline: none;
+    min-width: 200px;
+
+    @media (max-width: 480px) {
+      width: 100%;
+    }
   }
 
   input:focus,
@@ -122,14 +172,17 @@ const SearchFilter = styled.div`
 
 const ExamsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
+
+  @media (max-width: 480px) {
+    gap: 20px;
+  }
 `;
 
 const ExamCard = styled(motion.div)`
-  /* ✨ Animate each card */
   background: white;
-  padding: 35px;
+  padding: 25px 20px;
   border-radius: 25px;
   border-left: 6px solid rgba(46, 125, 50, 0.9);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
@@ -137,35 +190,51 @@ const ExamCard = styled(motion.div)`
   text-align: left;
 
   &:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
   }
 
   .exam-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     color: rgba(40, 194, 48, 0.9);
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      font-size: 1.1rem;
+      gap: 8px;
+    }
   }
 
   .exam-type {
     color: #f57f17;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-transform: capitalize;
   }
 
   .exam-details {
-    font-size: 1.05rem;
+    font-size: 1rem;
     margin-bottom: 15px;
     color: #444;
+
+    @media (max-width: 480px) {
+      font-size: 0.95rem;
+    }
   }
 
   .exam-actions {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     margin-top: 10px;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 10px;
+    }
   }
 `;
 
@@ -179,6 +248,7 @@ const Button = styled.a`
   font-weight: 600;
   transition: 0.3s ease;
   text-align: center;
+  display: inline-block;
 
   &.primary {
     background: #05b37d;
@@ -191,6 +261,10 @@ const Button = styled.a`
   &:hover {
     opacity: 0.85;
   }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `;
 
 const EmptyState = styled.div`
@@ -198,6 +272,11 @@ const EmptyState = styled.div`
   color: #777;
   padding: 60px 0;
   font-size: 1.4rem;
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    padding: 40px 0;
+  }
 `;
 
 const Footer = styled.footer`
@@ -208,6 +287,11 @@ const Footer = styled.footer`
   border-radius: 18px;
   margin-top: 40px;
   font-size: 1rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    padding: 20px;
+  }
 `;
 
 // ====================== Component ======================
