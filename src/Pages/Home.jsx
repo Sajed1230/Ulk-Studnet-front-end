@@ -294,13 +294,11 @@ export default function SudaneseStudents() {
             <Button to="/trackmajor" variant="primary">
               Browse Exams
             </Button>
-            <Button to="#president" variant="secondary">
-              Meet Our President
-            </Button>
+            
           </CtaButtons>
         </HeroSection>
 
-        <PresidentSection id="president" variants={fadeUp}>
+        <PresidentSection id="#president" variants={fadeUp}>
           <h3>Message from SSA-ULK to Sudanese Students</h3>
           <PresidentCard>
             <PresidentPhoto src="sudancelogo.jpeg" alt="President" />
