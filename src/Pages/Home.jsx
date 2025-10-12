@@ -312,12 +312,7 @@ export default function SudaneseStudents() {
               growth, and ensure that every Sudanese student feels supported
               during the journey abroad."
             </PresidentAdvice>
-            <PresidentBio>
-              I am honored to serve as the President of the Sudanese Students
-              Association in Rwanda. My goal is to foster unity, provide
-              opportunities for academic growth, and ensure that every Sudanese
-              student feels supported during their journey abroad.
-            </PresidentBio>
+           
           </PresidentCard>
           <LogoSection>
             <Logo
