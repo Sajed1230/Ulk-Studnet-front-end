@@ -1,4 +1,3 @@
-// TracksPage.jsx
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -21,6 +20,10 @@ const Header = styled(motion.header)`
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
   text-align: center;
   margin-bottom: 40px;
+
+  @media (max-width: 480px) {
+    padding: 35px 15px;
+  }
 `;
 
 const Title = styled.h1`
@@ -32,11 +35,19 @@ const Title = styled.h1`
   @media (max-width: 768px) {
     font-size: 2.3rem;
   }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const Subtitle = styled.p`
   font-size: 1.2rem;
   color: #f9f9f9cc;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const Breadcrumb = styled(motion.nav)`
@@ -65,6 +76,11 @@ const Breadcrumb = styled(motion.nav)`
     color: #555;
     font-weight: 500;
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    padding: 12px 15px;
+  }
 `;
 
 const TracksSection = styled.section`
@@ -77,6 +93,10 @@ const TracksSection = styled.section`
   @media (max-width: 768px) {
     padding: 30px 20px;
   }
+
+  @media (max-width: 480px) {
+    padding: 20px 15px;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -84,6 +104,10 @@ const SectionTitle = styled.h2`
   font-size: 2.4rem;
   font-weight: 700;
   margin-bottom: 20px;
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const SectionText = styled.p`
@@ -94,6 +118,11 @@ const SectionText = styled.p`
   margin-left: auto;
   margin-right: auto;
   line-height: 1.7;
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 35px;
+  }
 `;
 
 const TracksGrid = styled.div`
@@ -141,11 +170,20 @@ const TrackCard = styled(motion(Link))`
   @media (max-width: 768px) {
     padding: 30px 25px;
   }
+
+  @media (max-width: 480px) {
+    padding: 25px 20px;
+  }
 `;
 
 const TrackIcon = styled.div`
   font-size: 4.5rem;
   margin-bottom: 25px;
+
+  @media (max-width: 480px) {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
 `;
 
 const TrackTitle = styled.h3`
@@ -153,6 +191,11 @@ const TrackTitle = styled.h3`
   font-weight: 700;
   color: #2e7d32;
   margin-bottom: 15px;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
 `;
 
 const TrackDescription = styled.p`
@@ -160,6 +203,11 @@ const TrackDescription = styled.p`
   color: #666;
   margin-bottom: 25px;
   line-height: 1.7;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
 `;
 
 const TrackMajors = styled.div`
@@ -167,12 +215,20 @@ const TrackMajors = styled.div`
   color: #f57f17;
   font-weight: 600;
   margin-bottom: 10px;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const TrackYears = styled.div`
   font-size: 0.95rem;
   color: #2e7d32;
   font-weight: 600;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const Footer = styled.footer`
@@ -183,6 +239,11 @@ const Footer = styled.footer`
   border-radius: 20px;
   margin-top: 50px;
   font-size: 0.95rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    padding: 20px;
+  }
 `;
 
 // ====== Animation Variants ======

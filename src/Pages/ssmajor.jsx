@@ -1,3 +1,4 @@
+// SsMajors.jsx
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -52,6 +53,7 @@ const Breadcrumb = styled.nav`
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  font-size: 0.95rem;
 
   a {
     color: #2e7d32;
@@ -67,12 +69,16 @@ const Breadcrumb = styled.nav`
     color: #f57f17;
     margin: 0 5px;
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const MajorsSection = styled.section`
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  padding: 40px;
+  padding: 40px 20px;
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -114,17 +120,18 @@ const MajorsGrid = styled.div`
   margin: 0 auto;
 
   @media (max-width: 480px) {
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 55px;
   }
 `;
 
-const MajorCard = styled.div`
+const MajorCard = styled(Link)`
   background: linear-gradient(
     135deg,
     rgba(255, 152, 0, 0.1),
     rgba(76, 175, 80, 0.1)
   );
-  padding: 30px 20px;
+  padding: 25px 15px;
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -132,23 +139,24 @@ const MajorCard = styled.div`
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   &:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
     border-color: #ff9800;
   }
 
   @media (max-width: 480px) {
-    padding: 25px 15px;
+    padding: 20px 15px;
   }
 `;
 
 const MajorIcon = styled.div`
   font-size: 3rem;
   margin-bottom: 15px;
-  display: block;
   color: #ff9800;
 
   @media (max-width: 480px) {
@@ -160,7 +168,7 @@ const MajorTitle = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   color: #2e7d32;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 
   @media (max-width: 480px) {
     font-size: 1.3rem;
@@ -170,7 +178,7 @@ const MajorTitle = styled.div`
 const MajorDescription = styled.div`
   font-size: 0.95rem;
   color: #666;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   line-height: 1.5;
 
   @media (max-width: 480px) {
@@ -182,7 +190,7 @@ const MajorSkills = styled.div`
   font-size: 0.85rem;
   color: #f57f17;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 
   @media (max-width: 480px) {
     font-size: 0.8rem;
@@ -224,7 +232,7 @@ const pageVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: (index) => ({
     opacity: 1,
     scale: 1,
@@ -311,7 +319,6 @@ const SsMajors = () => {
                 animate="visible"
               >
                 <MajorCard
-                  as={Link}
                   to={`/years?track=ss&major=${encodeURIComponent(
                     major.title
                   )}`}

@@ -68,6 +68,10 @@ const Breadcrumb = styled.nav`
     color: #888;
     margin: 0 5px;
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const CourseInfo = styled.section`
@@ -123,7 +127,7 @@ const Detail = styled.div`
 const ExamsSection = styled.section`
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(10px);
-  padding: 35px;
+  padding: 35px 20px;
   border-radius: 25px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
   text-align: center;
@@ -172,10 +176,15 @@ const SearchFilter = styled.div`
 
 const ExamsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
 
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
   @media (max-width: 480px) {
+    grid-template-columns: 1fr;
     gap: 20px;
   }
 `;
@@ -223,6 +232,10 @@ const ExamCard = styled(motion.div)`
 
     @media (max-width: 480px) {
       font-size: 0.95rem;
+    }
+
+    div {
+      margin-bottom: 5px;
     }
   }
 
