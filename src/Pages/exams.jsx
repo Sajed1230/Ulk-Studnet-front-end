@@ -319,6 +319,28 @@ const ExamPage = () => {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(false);
 
+const downloadPdf = async (url, fileName) => {
+  try {
+    // Fetch the file as a blob
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Network response was not ok");
+
+    const blob = await response.blob();
+
+    // Create a temporary link element
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = `${fileName}.pdf`; // <-- force the filename with .pdf
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (err) {
+    console.error("Download failed", err);
+  }
+};
+
+
+
   useEffect(() => {
     const fetchExams = async () => {
       setLoading(true);
@@ -430,10 +452,7 @@ const ExamPage = () => {
                 <div className="exam-actions">
                   <Button
                     className="primary"
-                    href={exam.pdfPath}
-                    download={`${exam.name}.pdf`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => downloadPdf(exam.pdfPath, exam.name)}
                   >
                     Download PDF
                   </Button>

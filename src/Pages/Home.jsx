@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
+const MotionButton = motion(Link);
 // ====================== Animations ======================
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -107,31 +107,26 @@ const CtaButtons = styled.div`
   }
 `;
 
-const Button = styled(Link)`
+const AnimatedButton = styled(MotionButton)`
   display: inline-block;
   padding: 14px 25px;
-  text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
   font-size: 1rem;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: white;
   text-align: center;
-  background: ${({ variant }) =>
-    variant === "primary"
-      ? "linear-gradient(135deg, #2e7d32, #4caf50)"
-      : "linear-gradient(135deg, #f57f17, #ffb300)"};
+  background: linear-gradient(135deg, #2e7d32, #4caf50);
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  }
-
-  @media (max-width: 768px) {
-    width: 70%;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.8);
   }
 `;
 
@@ -291,9 +286,25 @@ export default function SudaneseStudents() {
             resource sharing.
           </HeroText>
           <CtaButtons>
-            <Button to="/trackmajor" variant="primary">
-              Browse Exams
-            </Button>
+            <AnimatedButton
+              to="/trackmajor"
+              variant="primary"
+              animate={{
+                scale: [1, 1.05, 1],
+                boxShadow: [
+                  "0 0 20px rgba(76,175,80,0.5)",
+                  "0 0 30px rgba(76,175,80,0.9)",
+                  "0 0 20px rgba(76,175,80,0.5)",
+                ],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              click Browse Exams
+            </AnimatedButton>
           </CtaButtons>
         </HeroSection>
 
@@ -311,7 +322,6 @@ export default function SudaneseStudents() {
               growth, and ensure that every Sudanese student feels supported
               during the journey abroad."
             </PresidentAdvice>
-            
           </PresidentCard>
           <LogoSection>
             <Logo
