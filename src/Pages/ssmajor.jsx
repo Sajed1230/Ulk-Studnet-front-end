@@ -115,7 +115,7 @@ const MajorsSection = styled.section`
 const MajorsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
+  gap: 68px;
   max-width: 1100px;
   margin: 0 auto;
 

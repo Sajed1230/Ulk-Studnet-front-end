@@ -257,7 +257,7 @@ const Button = styled.a`
   font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
-  color: white;
+  color: white; 
   font-weight: 600;
   transition: 0.3s ease;
   text-align: center;
@@ -276,7 +276,8 @@ const Button = styled.a`
   }
 
   @media (max-width: 480px) {
-    width: 100%;
+    width: 88%;
+
   }
 `;
 
@@ -374,7 +375,7 @@ const downloadPdf = async (url, fileName) => {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <Header>
-        <h1>Exam Repository</h1>
+        <h1>modules Repository</h1>
       </Header>
 
       <Breadcrumb>
@@ -404,7 +405,7 @@ const downloadPdf = async (url, fileName) => {
       </CourseInfo>
 
       <ExamsSection>
-        <h3>Available Exams</h3>
+        <h3>Available modules</h3>
         <SearchFilter>
           <input
             type="text"
