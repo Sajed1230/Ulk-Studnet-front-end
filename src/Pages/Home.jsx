@@ -303,7 +303,7 @@ export default function SudaneseStudents() {
                 ease: "easeInOut",
               }}
             >
-              click modules Exams
+              click for modules
             </AnimatedButton>
           </CtaButtons>
         </HeroSection>
