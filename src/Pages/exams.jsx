@@ -409,7 +409,7 @@ const downloadPdf = async (url, fileName) => {
         <SearchFilter>
           <input
             type="text"
-            placeholder="Search exams..."
+            placeholder="Search modules..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -425,7 +425,7 @@ const downloadPdf = async (url, fileName) => {
         </SearchFilter>
 
         {loading ? (
-          <EmptyState>Loading exams...</EmptyState>
+          <EmptyState>Loading modules...</EmptyState>
         ) : exams.length > 0 ? (
           <ExamsGrid>
             {exams.map((exam, index) => (
